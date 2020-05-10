@@ -77,4 +77,13 @@ public class TrackerTest {
         assertThat(tracker.findById(item1.getId()).getName(), is("second"));
     }
 
+    @Test
+    public void whenDelete() {
+        Tracker tracker = new Tracker();
+        Item item1 = new Item("first");
+        tracker.add(item1);
+        tracker.deleted(item1.getId());
+        assertThat(tracker.findById(item1.getId()), is(nullValue()));
+    }
+
 }
