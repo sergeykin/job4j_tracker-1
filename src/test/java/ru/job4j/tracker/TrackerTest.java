@@ -68,5 +68,13 @@ public class TrackerTest {
         assertThat(result, is(nullValue()));
     }
 
+    @Test
+    public void whenReplace() {
+        Tracker tracker = new Tracker();
+        Item item1 = new Item("first");
+        tracker.add(item1);
+        tracker.replace(item1.getId(), new Item("second"));
+        assertThat(tracker.findById(item1.getId()).getName(), is("second"));
+    }
 
 }
