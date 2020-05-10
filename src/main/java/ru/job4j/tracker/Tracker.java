@@ -42,6 +42,9 @@ public class Tracker {
 
     public boolean replace(String id, Item item) {
         int index = indexOf(id);
+        if (index == -1) {
+            return false;
+        }
         item.setId(id);
         items[index] = item;
         return true;
@@ -49,6 +52,9 @@ public class Tracker {
 
     public boolean deleted(String id) {
         int index = indexOf(id);
+        if (index == -1) {
+            return false;
+        }
         System.arraycopy(items, index + 1, items, index, position - index - 1);
         items[position - 1] = null;
         position--;
