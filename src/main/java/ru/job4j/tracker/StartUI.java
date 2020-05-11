@@ -27,7 +27,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
-        new StartUI().init(new ValidateInput(), tracker, new UserAction[] {
+        new StartUI().init(new ValidateInput(new ConsoleInput()), tracker, new UserAction[] {
                 new CreateAction(),
                 new FindAllAction(),
                 new ReplaceAction(),
