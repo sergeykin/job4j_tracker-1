@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import ru.job4j.tracker.action.*;
 import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.ValidateInput;
 
 public class StartUI {
 
@@ -26,7 +27,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
-        new StartUI().init(new ConsoleInput(), tracker, new UserAction[] {
+        new StartUI().init(new ValidateInput(), tracker, new UserAction[] {
                 new CreateAction(),
                 new FindAllAction(),
                 new ReplaceAction(),
