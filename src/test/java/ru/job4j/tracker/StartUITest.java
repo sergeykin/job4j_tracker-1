@@ -7,7 +7,7 @@ import ru.job4j.tracker.action.StubAction;
 import ru.job4j.tracker.action.UserAction;
 import ru.job4j.tracker.input.StubInput;
 import ru.job4j.tracker.model.Item;
-import ru.job4j.tracker.store.Tracker;
+import ru.job4j.tracker.store.MemTracker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -22,7 +22,7 @@ public class StartUITest {
                 new String[] {"0"}
         );
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] {action});
+        new StartUI().init(input, new MemTracker(), new UserAction[] {action});
         assertThat(action.isCall(), is(true));
     }
 
@@ -35,7 +35,7 @@ public class StartUITest {
                 new String[] {"0"}
         );
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] {action});
+        new StartUI().init(input, new MemTracker(), new UserAction[] {action});
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")
@@ -49,11 +49,11 @@ public class StartUITest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-        Tracker tracker = new Tracker();
+        MemTracker memTracker = new MemTracker();
         Item item = new Item("fix bug");
-        tracker.add(item);
+        memTracker.add(item);
         FindAllAction act = new FindAllAction();
-        act.execute(new StubInput(new String[] {}), tracker);
+        act.execute(new StubInput(new String[] {}), memTracker);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add(String.format("id: %s, name: %s", item.getId(), item.getName()))
                 .toString();
@@ -66,11 +66,11 @@ public class StartUITest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-        Tracker tracker = new Tracker();
+        MemTracker memTracker = new MemTracker();
         Item item = new Item("fix bug");
-        tracker.add(item);
+        memTracker.add(item);
         FindByNameAction act = new FindByNameAction();
-        act.execute(new StubInput(new String[] {"fix bug"}), tracker);
+        act.execute(new StubInput(new String[] {"fix bug"}), memTracker);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add(String.format("id: %s, name: %s", item.getId(), item.getName()))
                 .toString();

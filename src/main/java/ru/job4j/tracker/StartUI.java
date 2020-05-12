@@ -4,17 +4,17 @@ import ru.job4j.tracker.action.*;
 import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.ValidateInput;
-import ru.job4j.tracker.store.Tracker;
+import ru.job4j.tracker.store.MemTracker;
 
 public class StartUI {
 
-    public void init(Input input, Tracker tracker, UserAction[] actions) {
+    public void init(Input input, MemTracker memTracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
             showMenu(actions);
             int select = input.askInt("Enter select: ");
             UserAction action = actions[select];
-            run = action.execute(input, tracker);
+            run = action.execute(input, memTracker);
         }
     }
 
@@ -27,8 +27,8 @@ public class StartUI {
 
 
     public static void main(String[] args) {
-        Tracker tracker = new Tracker();
-        new StartUI().init(new ValidateInput(new ConsoleInput()), tracker, new UserAction[] {
+        MemTracker memTracker = new MemTracker();
+        new StartUI().init(new ValidateInput(new ConsoleInput()), memTracker, new UserAction[] {
                 new CreateAction(),
                 new FindAllAction(),
                 new ReplaceAction(),

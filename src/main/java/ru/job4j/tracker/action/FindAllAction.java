@@ -1,8 +1,10 @@
 package ru.job4j.tracker.action;
 
 import ru.job4j.tracker.model.Item;
-import ru.job4j.tracker.store.Tracker;
+import ru.job4j.tracker.store.MemTracker;
 import ru.job4j.tracker.input.Input;
+
+import java.util.List;
 
 public class FindAllAction implements UserAction {
     @Override
@@ -11,10 +13,10 @@ public class FindAllAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
-        Item[] items = tracker.findAll();
-        for (int i = 0; i < items.length; i++) {
-            System.out.println(items[i]);
+    public boolean execute(Input input, MemTracker memTracker) {
+        List<Item> items = memTracker.findAll();
+        for (Item item : items) {
+            System.out.println(item);
         }
         return true;
     }

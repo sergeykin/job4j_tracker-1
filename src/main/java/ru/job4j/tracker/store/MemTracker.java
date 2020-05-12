@@ -1,19 +1,17 @@
 package ru.job4j.tracker.store;
 
 import ru.job4j.tracker.model.Item;
-
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class Tracker {
+public class MemTracker {
 
-    private final Item[] items = new Item[100];
-
-    private int position;
+    private final List<Item> items = new ArrayList<>();
 
     public Item add(Item item) {
         item.setId(generateId());
-        items[position++] = item;
+        items.add(item);
         return item;
     }
 
@@ -22,24 +20,23 @@ public class Tracker {
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
 
-    public Item[] findAll() {
-        return Arrays.copyOf(items, position);
+    public List<Item> findAll() {
+        return items;
     }
 
     public Item findById(String id) {
         int index = indexOf(id);
-        return index != -1 ? items[index] : null;
+        return index != -1 ? items.get(index) : null;
     }
 
-    public Item[] findByName(String key) {
-        Item[] found = new Item[position];
-        int matched = 0;
-        for (int i = 0; i < position; i++) {
-            if (items[i].getName().equals(key)) {
-                found[matched++] = items[i];
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
+        for (Item item : items) {
+            if (key.equals(item.getName())) {
+                result.add(item);
             }
         }
-        return Arrays.copyOf(found, matched);
+        return result;
     }
 
     public boolean replace(String id, Item item) {
@@ -48,7 +45,7 @@ public class Tracker {
             return false;
         }
         item.setId(id);
-        items[index] = item;
+        items.set(index, item);
         return true;
     }
 
@@ -57,16 +54,14 @@ public class Tracker {
         if (index == -1) {
             return false;
         }
-        System.arraycopy(items, index + 1, items, index, position - index - 1);
-        items[position - 1] = null;
-        position--;
+        items.remove(index);
         return true;
     }
 
     private int indexOf(String id) {
         int index = -1;
-        for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
                 index = i;
                 break;
             }

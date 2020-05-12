@@ -1,8 +1,10 @@
 package ru.job4j.tracker.action;
 
 import ru.job4j.tracker.model.Item;
-import ru.job4j.tracker.store.Tracker;
+import ru.job4j.tracker.store.MemTracker;
 import ru.job4j.tracker.input.Input;
+
+import java.util.List;
 
 public class FindByNameAction implements UserAction {
     @Override
@@ -11,11 +13,11 @@ public class FindByNameAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, MemTracker memTracker) {
         String name = input.askStr("Enter name: ");
-        Item[] items = tracker.findByName(name);
-        for (int i = 0; i < items.length; i++) {
-            System.out.println(items[i]);
+        List<Item> items = memTracker.findByName(name);
+        for (Item item: items) {
+            System.out.println(item);
         }
         return true;
     }
