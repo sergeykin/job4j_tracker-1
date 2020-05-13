@@ -85,7 +85,7 @@ public class MemTrackerTest {
         MemTracker memTracker = new MemTracker();
         Item item1 = new Item("first");
         memTracker.add(item1);
-        memTracker.deleted(item1.getId());
+        memTracker.delete(item1.getId());
         assertThat(memTracker.findById(item1.getId()), is(nullValue()));
     }
 
