@@ -17,6 +17,12 @@ public class Item {
         this.name = name;
     }
 
+    public static Item idStub(int id) {
+        Item item = new Item();
+        item.setId(id);
+        return item;
+    }
+
     public Integer getId() {
         return id;
     }
